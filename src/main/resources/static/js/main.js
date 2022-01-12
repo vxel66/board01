@@ -5,7 +5,6 @@ $(function(){
     $("#password").keyup(function(){
         var password = $("#password").val();
         var b_num =$("#b_num").val();
-        alert(password);
         $.ajax({
         method: "POST",
         url: "/board/pwcheck",
@@ -14,7 +13,6 @@ $(function(){
         'b_num':b_num
         },
         success: function(result){
-            alert(result);
             if(result==1){
                 document.getElementById('update').style.display='';
             }else{
