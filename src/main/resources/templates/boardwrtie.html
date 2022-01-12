@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+    <div th:replace="header.html :: header" ></div>
+
+    <h3>글쓰기</h3>
+    <div class="container">
+
+        <form action="/board/boardwritecontroller" method="post">
+            <input type="text" class="form-control" placeholder="글제목" name="b_title"><br>
+            <input type="text" class="form-control" placeholder="글내용" name="b_contents"><br>
+            <input type="text" class="form-control" placeholder="글작성자" name="b_writer"><br>
+            <input type="password" class="form-control" placeholder="글비밀번호" name="b_password"><br>
+            <button type="submit" class="btn btn-primary">글쓰기</button>
+        </form>
+    </div>
+
+</body>
+</html>
