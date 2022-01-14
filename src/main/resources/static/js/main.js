@@ -14,6 +14,7 @@ $(function(){
         },
         success: function(result){
             if(result==1){
+                document.getElementById('pw_result').innerHTML="비밀번호 확인";
                 document.getElementById('update').style.display='';
             }else{
                 document.getElementById('pw_result').innerHTML="비밀번호가 다릅니다";
