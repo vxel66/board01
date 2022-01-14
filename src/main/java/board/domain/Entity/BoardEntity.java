@@ -15,8 +15,8 @@ public class BoardEntity extends TimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "b_num")
-    private int b_num;
+    @Column(name = "bnum")
+    private int bnum;
 
     @Column(name = "b_title")
     private String b_title;
@@ -32,4 +32,7 @@ public class BoardEntity extends TimeEntity {
 
     @Column(name = "b_view")
     private int b_view;
+
+    @Column(name = "b_file")
+    private  String b_file;
 }

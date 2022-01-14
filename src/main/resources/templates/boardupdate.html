@@ -10,12 +10,16 @@
 
     <div class="container">
         <div>
-            <form method="post" action="/board/boardupdatecontroller">
-                <input type="hidden" th:value="${boardupdate.b_num}" name="b_num">
+            <form method="post" action="/board/boardupdatecontroller" enctype="multipart/form-data">
+                <input type="hidden" th:value="${boardupdate.b_num}" name="b_num" id="b_num0">
                 <input type="text" th:value="${boardupdate.b_title}" name="b_title"> <br>
                 <input type="text" th:value="${boardupdate.b_contents}" name="b_contents"> <br>
+                <input type="hidden" th:value="${boardupdate.b_file}" name="b_file" id="b_file0"> <br>
+                <span th:text="${boardupdate.b_filename}"></span> <br>
+                <input  type="file" name="b_newfile">
                 <button type="submit">수정하기</button>
             </form>
+                <button onclick="filedelete()">첨부파일 삭제하기</button>
         </div>
     </div>
 

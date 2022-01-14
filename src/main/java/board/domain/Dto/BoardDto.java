@@ -16,6 +16,8 @@ public class BoardDto {
     private String b_writer;
     private String b_password;
     private int b_view;
+    private String b_file;
+    private String b_filename;
 
     public BoardEntity toentity(){
         return BoardEntity.builder()
@@ -23,6 +25,7 @@ public class BoardDto {
                 .b_contents(this.b_contents)
                 .b_writer(this.b_writer)
                 .b_password(this.b_password)
+                .b_file(this.b_file)
                 .build();
     }
 }

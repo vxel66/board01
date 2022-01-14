@@ -15,6 +15,8 @@
             <td th:text="${boardview.b_contents}"></td>
             <td th:text="${boardview.b_writer}"></td>
             <td th:text="${boardview.b_createdDate}"></td>
+            <img th:if="${boardview.b_file!=null}" th:src="@{'/upload/'+${boardview.b_file}}">
+            <a th:href="@{/board/filedownload(b_file=${boardview.b_file})}" th:text="${boardview.b_filename}"></a>
         </div>
         <input type="password" placeholder="password" id="password">
         <input type="hidden"  id="b_num" th:value="${boardview.b_num}">

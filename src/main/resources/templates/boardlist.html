@@ -15,25 +15,56 @@
             <tr>
                 <th>번호</th><th>제목</th><th>작성일</th><th>작성자</th><th>조회수</th>
             </tr>
-<!--            <tr th:each:="boards : ${boardDtos}">-->
-<!--                <td th:text="${boards.b_num}"> </td>-->
-<!--                <td th:text="${boards.b_title}"> </td>-->
-<!--                <td th:text="${boards.b_writer}"> </td>-->
-<!--                <td th:text="${boards.b_view}"> </td>-->
-<!--            </tr>-->
-
             <tr th:each="boardDtos : ${boardDtos}">
-                <td th:text="${boardDtos.b_num}">  </td>
-                <td > <a th:href="@{'/board/boardview/'+${boardDtos.b_num}}">
+                <td th:text="${boardDtos.bnum}">  </td>
+                <td > <a th:href="@{'/board/boardview/'+${boardDtos.bnum}}">
                     <span th:text="${boardDtos.b_title}"></span> </a>
                 </td>
-                <td th:text="${boardDtos.b_createdDate}">  </td>
+                <td th:text="${ #temporals.format( boardDtos.createdDate,'yy-MM-dd hh:mm')}">  </td>
                 <td th:text="${boardDtos.b_writer}">  </td>
                 <td th:text="${boardDtos.b_view}">  </td>
             </tr>
         </table>
 
+        <ul class="pagination justify-content-center"
+            th:with="start=${T(Math).floor(boardDtos.number/10) * 10 + 1 } ,
+                        last=(${start + 9 < boardDtos.totalPages ?  start + 9 : boardDtos.totalPages })">
+            <!-- 첫페이지이동 -->
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(page=1)}"> << </a>
+            </li>
+            <!-- 이전페이지이동  -->
+            <li class="page-item" th:class="${boardDtos.first} ? 'disabled'">
+                <a class="page-link" th:href="${boardDtos.first}? '#' : @{/(page=${ boardDtos.number })}"> < </a>
+            </li>
+            <!-- 페이지번호 -->
+            <li class="page-item" th:each="page : ${#numbers.sequence( start , last ) }">
+                <a class="page-link" th:href="@{/(page=${page})}" th:text="${page}"> </a>
+            </li>
+            <!-- 다음페이지이동 -->
+            <li class="page-item" th:class="${boardDtos.last} ? 'disabled'">
+                <a class="page-link" th:href="${boardDtos.last} ? '#' : @{/(page=${boardDtos.number+2})}"> > </a>
+            </li>
+            <!-- 마지막페이지 이동 -->
+            <li class="page-item">
+                <a class="page-link" th:href="@{/(page=${boardDtos.totalPages})}"> >> </a>
+            </li>
+        </ul>
+
+        <div style="text-align:center">
+            <form action="/" method="get">
+                <select name="keyword">
+                    <option name="b_title" value="b_title">제목</option>
+                    <option name="b_contents" value="b_contents">내용</option>
+                    <option name="b_writer" value="b_writer">작성자</option>
+                </select>
+                <input type="type" name="search">
+                <input type="submit" value="검색">
+            </form>
+        </div>
+
     </div>
+
 
 
 
