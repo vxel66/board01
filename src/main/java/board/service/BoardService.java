@@ -4,6 +4,8 @@ package board.service;
 import board.domain.Dto.BoardDto;
 import board.domain.Entity.BoardEntity;
 import board.domain.Entity.BoardRepository;
+import board.domain.Entity.ReplyEntity;
+import board.domain.Entity.ReplyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -133,6 +135,48 @@ public class BoardService {
         return false;
     }
 
+    @Autowired
+    private ReplyRepository replyRepository;
+
+    //댓글등록
+    public boolean replywrite(int bnum,String rcontents, String replyhPw){
+
+        Optional<BoardEntity> boardEntity = boardRepository.findById(bnum);
+
+        ReplyEntity replyEntity = ReplyEntity.builder()
+                .rcontents(rcontents)
+                .rpasssword(replyhPw)
+                .boardEntity(boardEntity.get())
+                .build();
+        replyRepository.save(replyEntity);
+
+        boardEntity.get().getReplyEntities().add(replyEntity);
+
+        return true;
+    }
+
+    //모든 댓글 출력
+    public List<ReplyEntity> getreplylist(int bnum){
+
+        Optional<BoardEntity> board = boardRepository.findById(bnum);
+
+        List<ReplyEntity> replyEntities =board.get().getReplyEntities();
+
+        return replyEntities;
+    }
+    
+    //댓글삭제
+    public boolean replydelete(int rnum ,String rpw){
+        Optional<ReplyEntity> replyEntity = replyRepository.findById(rnum);
+
+        if(replyEntity.get().getRnum()==rnum&&replyEntity.get().getRpasssword().equals(rpw)){
+            replyRepository.delete(replyEntity.get());
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 
 
 

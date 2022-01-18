@@ -3,6 +3,8 @@ package board.domain.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "board")
@@ -35,4 +37,8 @@ public class BoardEntity extends TimeEntity {
 
     @Column(name = "b_file")
     private  String b_file;
+
+    @OneToMany(mappedBy = "boardEntity")
+    private List<ReplyEntity> replyEntities = new ArrayList<>();
+
 }

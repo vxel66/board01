@@ -2,6 +2,7 @@ package board.controller;
 
 import board.domain.Dto.BoardDto;
 import board.domain.Entity.BoardEntity;
+import board.domain.Entity.ReplyEntity;
 import board.service.BoardService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -50,6 +52,7 @@ public class BoardController {
             search = (String)session.getAttribute("search");
         }
         Page<BoardEntity> boardDtos = boardService.boardlist(pageable,keyword,search);
+
 
         model.addAttribute("boardDtos", boardDtos);
 
@@ -108,7 +111,11 @@ public class BoardController {
             boardDto.setB_filename(boardDto.getB_file().split("_")[1]);
         }
         System.out.println("파일명2 :"+boardDto.getB_filename());
+
+        List<ReplyEntity> replyEntities = boardService.getreplylist(b_num);
+
         model.addAttribute("boardview",boardDto);
+        model.addAttribute("replyEntities",replyEntities);
         System.out.println("@@@@@@@@@boardDto@@@  :"+boardDto.getB_contents());
         return "boardview";
     }
@@ -235,6 +242,32 @@ public class BoardController {
 
     }
 
+
+    @GetMapping("/board/replywrite")
+    @ResponseBody
+    public String replywrite(@RequestParam("replyinput")String replyinput,
+                             @RequestParam("replyPw")String replyPw,
+                             @RequestParam("b_num")int b_num){
+        boardService.replywrite(b_num,replyinput,replyPw);
+
+        return "1";
+    }
+
+    //리플 패스워드 확인
+    @GetMapping("/board/replypwconfirm")
+    @ResponseBody
+    public String replypwconfirm(@RequestParam("replypw")String replypw,
+                             @RequestParam("rnum")int rnum){
+
+
+        boolean reply= boardService.replydelete(rnum,replypw);
+        if(reply){
+            return "1";
+        }else{
+            return "2";
+        }
+
+    }
 
 
 
