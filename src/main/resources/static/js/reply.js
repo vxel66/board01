@@ -5,14 +5,15 @@ function replywrite(){
     var replyPw = $("#replyPw").val();
     var b_num = $("#b_num").val();
 
-    if(replyPw==""){
-        alert("댓글 비밀번호를 입력해주세요");
-        return;
-    }
     if(replyinput==""){
         alert("댓글 입력해주세요");
         return;
     }
+    if(replyPw==""){
+        alert("댓글 비밀번호를 입력해주세요");
+        return;
+    }
+
 
     $.ajax({
         url:"/board/replywrite",
