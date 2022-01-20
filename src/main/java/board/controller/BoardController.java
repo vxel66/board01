@@ -239,7 +239,6 @@ public class BoardController {
             return "1";
         }
         return "2";
-
     }
 
 

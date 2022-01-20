@@ -108,6 +108,36 @@ function boardwrite() {
     }
 
 
+        function meetpssword(meetnum){
+             alert(meetnum);
+
+             document.getElementById('meetpw0'+meetnum).style.display='';
+
+        }
+
+        function meetdelete(meetnum){
+
+                var meetpw = $("#meetpw"+meetnum).val();
+                alert(meetnum);
+                alert(meetpw);
+                $.ajax({
+                    type: "POST",
+                    url:"/meeting/meetpassword",
+                    data: {
+                        "meetnum" : meetnum ,
+                        "meetpw" : meetpw
+                    },
+                    success :function(data){
+                        alert(data);
+                        if(data==1){
+                           $("#meetlist0").load(location.href+" #meetlist0");
+                        }else{
+                            alert("비밀번호가 틀립니다")
+                        }
+
+                    }
+                })
+        }
 
 
 

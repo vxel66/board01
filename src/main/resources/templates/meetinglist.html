@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:replace="header.html :: header" ></div>
+    <h3>미팅리스트</h3>
+    <a href="/meeting/meetingwrite"><button> 모임생성 </button></a>
+
+    <div class="container" id="meetlist0">
+        <div class="row" th:each="meet:${meetlist}">
+            <div class="col-md-3">
+                <button type="button" class="btn btn-outline-info"  th:data-bs-target="${'#modal'+meet.meetnum}" data-bs-toggle="modal">
+                    <img width="100%" th:src="@{'/meetimg/'+${meet.meetingimgEntity.get(0).mimg}}">
+                </button>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div th:text="${meet.meettitle}"></div>
+                    <div th:text="${meet.meetcontents}"></div>
+                    <div th:text="${meet.meetcategorie}"></div>
+                    <div th:text="${meet.meetenddate}"></div>
+                    <div th:text="${meet.meetmaxnum}"></div>
+                    <div th:text="${meet.meetpassword}"></div>
+                    <div th:text="${meet.meetact}"></div>
+                    <div>
+                        <button th:onclick="meetpssword([[${meet.meetnum}]])">x</button>
+                    </div>
+                    <div th:id="'meetpw0'+${meet.meetnum}" style="display: none"><input type="password" th:id="'meetpw'+${meet.meetnum}" >
+                        <button th:onclick="meetdelete([[${meet.meetnum}]])">확인</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" th:id="${'modal'+meet.meetnum}" data-bs-keyboard="false" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content rounded-5 shadow">
+                        <div class="modal-header p-5 pb-4 border-bottom-0">
+                            <h2 class="fw-bold mb-0" th:text="${meet.meettitle}"></h2>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>    <!-- 닫기 버튼 -->
+                        </div>
+                        <div class="modal-body p-5 pt-0">
+                            하하
+                            <!--캐러셀-->
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img th:src="@{'/meetimg/'+${meet.meetingimgEntity.get(0).mimg}}" class="d-block w-100" alt="...">
+                                    </div>
+                                    <div class="carousel-item" th:each="meetimg : ${meet.meetingimgEntity}">
+                                        <img th:src="@{'/meetimg/'+${meetimg.mimg}}" class="d-block w-100" alt="...">
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

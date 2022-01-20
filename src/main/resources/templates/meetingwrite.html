@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <div th:replace="header.html :: header" ></div>
+    <h3>모임 만들기</h3>
+    <div class="container">
+        <form action="/meeting/meetingwritecontroller" method="post" enctype="multipart/form-data">
+            <input type="text" placeholder="모임명" name="meettitle"><br>
+            <input type="text" placeholder="모임종류" name="meetcategorie"><br>
+            <input type="textarea" placeholder="모임소개" name="meetcontents"><br>
+            <input type="date" placeholder="마감일" name="meetenddate"><br>
+            <input type="text" placeholder="최대인원" name="meetmaxnum"><br>
+            <input type="password" placeholder="비밀번호" name="meetpassword"><br>
+            이미지 :<input type="file" multiple="multiple" name="file"><br>
+            <button type="submit">모임등록</button>
+        </form>
+
+    </div>
+
+</body>
+</html>
