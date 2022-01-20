@@ -39,7 +39,8 @@ public class MeetingService {
         MeetingEntity savemeet = meetingRepository.findById(meetnum).get();
 
         //파일처리
-        String dir = "C:\\Users\\505\\Desktop\\board01\\src\\main\\resources\\static\\meetimg";
+        //String dir = "C:\\Users\\505\\Desktop\\board01\\src\\main\\resources\\static\\meetimg";
+        String dir ="\\home\\ec2-user\\apps\\board01\\src\\main\\resources\\static\\upload";
         String uuidfile = null;
 
         if(files.size() != 0){
